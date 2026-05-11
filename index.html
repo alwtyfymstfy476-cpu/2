@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>al_witify – Anatomy Quiz | 31 Questions</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    
+    <style>
+        /* ── Scroll snap ── */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.4; transform: scale(0.95); }
+            to   { opacity: 1;   transform: scale(1.08); }
+        }
+
+        /* ── Custom scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 0, 60, 0.4);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(124, 58, 237, 0.5);
+            border-radius: 4px;
+        }
+
+        [style*="scroll-snap-type"] > * {
+            scroll-snap-align: start;
+        }
+        
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        // ==============================================
+        // 31 QUESTIONS - EXACTLY AS PROVIDED
+        // ==============================================
+        const questions = [
+            {
+                id: 1,
+                text: "What is the primary function of the orbicularis oculi muscle in relation to the eyelids?",
+                options: [
+                    { letter: "a", text: "To support the tarsal plates" },
+                    { letter: "b", text: "To raise the upper eyelid" },
+                    { letter: "c", text: "To close the eyelids" },
+                    { letter: "d", text: "To produce tears" },
+                    { letter: "e", text: "None of above" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 2,
+                text: "Which part of the eye is responsible for its avascular nature?",
+                options: [
+                    { letter: "a", text: "Iris" },
+                    { letter: "b", text: "Sclera" },
+                    { letter: "c", text: "Cornea" },
+                    { letter: "d", text: "Choroid" },
+                    { letter: "e", text: "Retina" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 3,
+                text: "Extra ocular muscles",
+                options: [
+                    { letter: "a", text: "all supply by abducent nerve." },
+                    { letter: "b", text: "all originate from tendinous ring." },
+                    { letter: "c", text: "superior oblique supply by trochlear nerve." },
+                    { letter: "d", text: "lateral rectus supplied by oculomotor." },
+                    { letter: "e", text: "none of above" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 4,
+                text: "Regarding oculomotor nerve",
+                options: [
+                    { letter: "a", text: "originate from medulla oblongata." },
+                    { letter: "b", text: "have motor nuclei only." },
+                    { letter: "c", text: "Supply all extra ocular muscles." },
+                    { letter: "d", text: "pass in medial wall of cavernous sinus." },
+                    { letter: "e", text: "all above are false" }
+                ],
+                answer: "e"
+            },
+            {
+                id: 5,
+                text: "The nasal septum bony parts consist of:",
+                options: [
+                    { letter: "a", text: "the maxilla" },
+                    { letter: "b", text: "the vomer and ethmoid bones" },
+                    { letter: "c", text: "the sphenoid and ethmoid bones" },
+                    { letter: "d", text: "the frontal, zygoma and maxilla" },
+                    { letter: "e", text: "the vomer and palatine bones" }
+                ],
+                answer: "b"
+            },
+            {
+                id: 6,
+                text: "Regarding the abducent nerve (CN VI):",
+                options: [
+                    { letter: "a", text: "the nucleus lies in the medulla" },
+                    { letter: "b", text: "supplies superior oblique muscle" },
+                    { letter: "c", text: "enters the orbit via superior orbital fissure" },
+                    { letter: "d", text: "has no relation to the cavernous sinus" },
+                    { letter: "e", text: "carries autonomic fibers from EdingerWestphal node" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 7,
+                text: "The larynx",
+                options: [
+                    { letter: "a", text: "Is a respiratory organ whose essential function is phonation" },
+                    { letter: "b", text: "Extends from the anterior upper border of the epiglottis to the level of C6" },
+                    { letter: "c", text: "Consists of two single cartilages, the thyroid and cricoid" },
+                    { letter: "d", text: "Is hauled up beneath the tongue with the epiglottis tilted anterior and upwards during swallowing" },
+                    { letter: "e", text: "Is supplied by the external laryngeal nerve except for the cricothyroid muscle which is supplied by the recurrent laryngeal nerve" }
+                ],
+                answer: "b"
+            },
+            {
+                id: 8,
+                text: "external jugular vein (all true except)",
+                options: [
+                    { letter: "a", text: "forms by union of posterior division of retromandibular vein & posterior auricular vein" },
+                    { letter: "b", text: "its beginning lies in parotid gland" },
+                    { letter: "c", text: "end to subclavian vein" },
+                    { letter: "d", text: "descend inferoanteriorly" },
+                    { letter: "e", text: "b & c" }
+                ],
+                answer: "d"
+            },
+            {
+                id: 9,
+                text: "platysma muscle",
+                options: [
+                    { letter: "a", text: "originated from body of mandible" },
+                    { letter: "b", text: "supplied by cervical branch of facial nerve" },
+                    { letter: "c", text: "supplied by cervical spinal roots" },
+                    { letter: "d", text: "skin overlying it supplied by cervical branch of facial nerve" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "b"
+            },
+            {
+                id: 10,
+                text: "digastric muscle",
+                options: [
+                    { letter: "a", text: "arise from body of mandible (anterior belly)" },
+                    { letter: "b", text: "anterior belly elevate larynx" },
+                    { letter: "c", text: "anterior belly supplied by trigeminal nerve" },
+                    { letter: "d", text: "all of above" },
+                    { letter: "e", text: "none of the above" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 11,
+                text: "mylohyoid muscle (choose false)",
+                options: [
+                    { letter: "a", text: "arise from mandibular body" },
+                    { letter: "b", text: "supplied by trigeminal nerve" },
+                    { letter: "c", text: "elevate body of mandible" },
+                    { letter: "d", text: "divide submandibular gland into superficial & deep parts" },
+                    { letter: "e", text: "all of the above" }
+                ],
+                answer: "c"
+            },
+            {
+                id: 12,
+                text: "deep cervical fascia (choose false one)",
+                options: [
+                    { letter: "a", text: "carotid sheath contains one cranial nerve in its lower part" },
+                    { letter: "b", text: "carotid sheath contains 4 cranial nerves in its upper part" },
+                    { letter: "c", text: "carotid sheath contains deep cervical vessels" },
+                    { letter: "d", text: "contain maxillary artery" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 13,
+                text: "major border lines of neck triangles (all of following except)",
+                options: [
+                    { letter: "a", text: "trapezius muscle" },
+                    { letter: "b", text: "strap muscles" },
+                    { letter: "c", text: "sternocleidomastoid muscle" },
+                    { letter: "d", text: "omohyoid muscle" },
+                    { letter: "e", text: "a & b" }
+                ],
+                answer: "b"
+            },
+            {
+                id: 14,
+                text: "anterior neck triangle contains except",
+                options: [
+                    { letter: "a", text: "stylohyoid muscle" },
+                    { letter: "b", text: "hypoglossal nerve" },
+                    { letter: "c", text: "submandibular gland" },
+                    { letter: "d", text: "brachial plexus" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 15,
+                text: "facial vein",
+                options: [
+                    { letter: "a", text: "facial veins joined by posterior division of retromandibular vein" },
+                    { letter: "b", text: "facial vein drained to external jugular vein" },
+                    { letter: "c", text: "facial vein connected with intracranial space" },
+                    { letter: "d", text: "facial vein cross over mandible without crossing over maxilla" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "c"
+            },
+            {
+                id: 16,
+                text: "maxillary vein (all true except)",
+                options: [
+                    { letter: "a", text: "one of two tributaries of retromandibular vein" },
+                    { letter: "b", text: "start in pterygopalatine fossa" },
+                    { letter: "c", text: "end in parotid gland" },
+                    { letter: "d", text: "forms from pterygoid plexus" },
+                    { letter: "e", text: "none of the above." }
+                ],
+                answer: "b"
+            },
+            {
+                id: 17,
+                text: "internal jugular vein",
+                options: [
+                    { letter: "a", text: "has two bulbs & valves" },
+                    { letter: "b", text: "forms as continuation of superior petrosal sinus" },
+                    { letter: "c", text: "lies posterior to spinal accessory nerve in superior part of neck" },
+                    { letter: "d", text: "has 8 tributaries" },
+                    { letter: "e", text: "a & c" }
+                ],
+                answer: "a"
+            },
+            {
+                id: 18,
+                text: "neck lymphatic system",
+                options: [
+                    { letter: "a", text: "retropharyngeal lymph nodes involute after age 5 years" },
+                    { letter: "b", text: "submandibular lymph nodes receive lymph from nose" },
+                    { letter: "c", text: "deep lymph nodes called jugular group" },
+                    { letter: "d", text: "all of above true" },
+                    { letter: "e", text: "none of the above" }
+                ],
+                answer: "d"
+            },
+            {
+                id: 19,
+                text: "cancer in nasopharynx & neck lymph nodes",
+                options: [
+                    { letter: "a", text: "can cause posterior triangle lymphadenopathy" },
+                    { letter: "b", text: "start in lining of basisphenoid" },
+                    { letter: "c", text: "1st involved lymph nodes are submandibular" },
+                    { letter: "d", text: "all of above true" },
+                    { letter: "e", text: "none of the above" }
+                ],
+                answer: "a"
+            },
+            {
+                id: 20,
+                text: "autonomic neck & head nervous system",
+                options: [
+                    { letter: "a", text: "glossopharyngeal supply parasympathetic innervation of sublingual glands" },
+                    { letter: "b", text: "oculomotor supply sympathetic & motor innervation of eye" },
+                    { letter: "c", text: "vagus & sympathetic chain lie inside carotid sheath" },
+                    { letter: "d", text: "vagus is motor & parasympathetic nerve" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 21,
+                text: "deep neck spaces (all true except)",
+                options: [
+                    { letter: "a", text: "are potential spaces." },
+                    { letter: "b", text: "retropharyngeal space lies behind the pharynx." },
+                    { letter: "c", text: "danger space lies between alar and prevertebral fascia." },
+                    { letter: "d", text: "pretracheal space is limited to the neck." },
+                    { letter: "e", text: "none of the above." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 22,
+                text: "oral cavity",
+                options: [
+                    { letter: "a", text: "sensory nerve supply of it for larger proportion mediated by mandibular division of trigeminal nerve" },
+                    { letter: "b", text: "tongue muscles mainly supplied by facial artery" },
+                    { letter: "c", text: "foramen cecum play significant role in tasting of food" },
+                    { letter: "d", text: "all muscles of tongue supplied by same nerve" },
+                    { letter: "e", text: "none of the above" }
+                ],
+                answer: "e"
+            },
+            {
+                id: 23,
+                text: "tensor palati muscle",
+                options: [
+                    { letter: "a", text: "inserted to Eustachian tube" },
+                    { letter: "b", text: "it is minor palatal muscle" },
+                    { letter: "c", text: "supplied by maxillary division of trigeminal nerve" },
+                    { letter: "d", text: "when contract open Eustachian tube" },
+                    { letter: "e", text: "a & b" }
+                ],
+                answer: "d"
+            },
+            {
+                id: 24,
+                text: "palate",
+                options: [
+                    { letter: "a", text: "has 4 muscles" },
+                    { letter: "b", text: "palatine bone forms larger part of hard palate" },
+                    { letter: "c", text: "supplied by 9th, 10th as a whole" },
+                    { letter: "d", text: "uvular muscle has no role in swallowing & articulation" },
+                    { letter: "e", text: "none of the above" }
+                ],
+                answer: "e"
+            },
+            {
+                id: 25,
+                text: "pharynx",
+                options: [
+                    { letter: "a", text: "palatine tonsil diseases cause jugulo- omohyoid lymph nodes enlargement" },
+                    { letter: "b", text: "palatoglossus forms posterior end of palatine tonsils" },
+                    { letter: "c", text: "palatoglossus share in oropharyngeal isthmus" },
+                    { letter: "d", text: "b & c" },
+                    { letter: "e", text: "all of the above." }
+                ],
+                answer: "c"
+            },
+            {
+                id: 26,
+                text: "hypopharynx (choose false)",
+                options: [
+                    { letter: "a", text: "C6 vertebra represents end of it" },
+                    { letter: "b", text: "aryepiglottic folds forms lateral boundary" },
+                    { letter: "c", text: "consists of pyriform fossae & postcricoid regions" },
+                    { letter: "d", text: "valleculae are not part from it" },
+                    { letter: "e", text: "none of the above." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 27,
+                text: "superior constrictor muscle",
+                options: [
+                    { letter: "a", text: "arise from pharyngeal tubercle of occipital bone" },
+                    { letter: "b", text: "by its contraction propel bolus of food superiorly" },
+                    { letter: "c", text: "innervated by mandibular division of trigeminal nerve" },
+                    { letter: "d", text: "inserted to pharyngeal raphe" },
+                    { letter: "e", text: "c & d" }
+                ],
+                answer: "d"
+            },
+            {
+                id: 28,
+                text: "salpingopharyngus muscle",
+                options: [
+                    { letter: "a", text: "elevates of Eustachian tube" },
+                    { letter: "b", text: "share in breathing" },
+                    { letter: "c", text: "blends with palatopharyngus" },
+                    { letter: "d", text: "supplied by trigeminal nerve" },
+                    { letter: "e", text: "a & b." }
+                ],
+                answer: "c"
+            },
+            {
+                id: 29,
+                text: "A patient presents with visual field defects and endocrine dysfunction. Imaging shows a lesion in the sella turcica region. Which dural fold is most directly related?",
+                options: [
+                    { letter: "a", text: "Falx cerebri" },
+                    { letter: "b", text: "Falx cerebelli" },
+                    { letter: "c", text: "Tentorium cerebelli" },
+                    { letter: "d", text: "Diaphragma sella" },
+                    { letter: "e", text: "Straight sinus." }
+                ],
+                answer: "d"
+            },
+            {
+                id: 30,
+                text: "Which of the following dural sinuses lies between the periosteal and meningeal layers of the dura mater?",
+                options: [
+                    { letter: "a", text: "Inferior sagittal sinus" },
+                    { letter: "b", text: "Superior sagittal sinus" },
+                    { letter: "c", text: "Straight sinus" },
+                    { letter: "d", text: "Cavernous sinus" },
+                    { letter: "e", text: "Great cerebral vein" }
+                ],
+                answer: "b"
+            },
+            {
+                id: 31,
+                text: "A lumbar MRI reveals a thickened and inflamed denticulate ligament. From which meningeal layer does this ligament originate?",
+                options: [
+                    { letter: "a", text: "Pia mater" },
+                    { letter: "b", text: "Arachnoid mater" },
+                    { letter: "c", text: "Dura mater" },
+                    { letter: "d", text: "Subarachnoid space" }
+                ],
+                answer: "a"
+            }
+        ];
+
+        window.addEventListener('load', function() {
+            const { useState, useRef, useEffect } = React;
+            
+            // GalaxyBackground Component
+            const GalaxyBackground = () => {
+                const canvasRef = useRef(null);
+                
+                useEffect(() => {
+                    const canvas = canvasRef.current;
+                    if (!canvas) return;
+                    const ctx = canvas.getContext("2d");
+                    if (!ctx) return;
+
+                    let animationId;
+                    let width = window.innerWidth;
+                    let height = window.innerHeight;
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const NUM_STARS = 320;
+                    const stars = Array.from({ length: NUM_STARS }, () => ({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        r: Math.random() * 1.8 + 0.2,
+                        speed: Math.random() * 0.004 + 0.001,
+                        phase: Math.random() * Math.PI * 2,
+                    }));
+
+                    let shoots = [];
+                    let shootTimer = 0;
+
+                    function spawnShoot() {
+                        const x = Math.random() * width;
+                        const y = Math.random() * height * 0.5;
+                        const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.5;
+                        const speed = 8 + Math.random() * 6;
+                        shoots.push({
+                            x, y,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            len: 80 + Math.random() * 60,
+                            alpha: 1,
+                            life: 1,
+                        });
+                    }
+
+                    let t = 0;
+
+                    function draw() {
+                        ctx.clearRect(0, 0, width, height);
+
+                        const bg = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.max(width, height));
+                        bg.addColorStop(0, "#09001a");
+                        bg.addColorStop(0.5, "#050015");
+                        bg.addColorStop(1, "#000008");
+                        ctx.fillStyle = bg;
+                        ctx.fillRect(0, 0, width, height);
+
+                        const nebulae = [
+                            { x: width * 0.2, y: height * 0.3, r: 220, color: "rgba(80,0,160,0.12)" },
+                            { x: width * 0.75, y: height * 0.6, r: 280, color: "rgba(0,80,180,0.10)" },
+                            { x: width * 0.5, y: height * 0.8, r: 200, color: "rgba(160,0,80,0.09)" },
+                            { x: width * 0.85, y: height * 0.15, r: 180, color: "rgba(0,160,120,0.08)" },
+                        ];
+                        for (const neb of nebulae) {
+                            const grad = ctx.createRadialGradient(neb.x, neb.y, 0, neb.x, neb.y, neb.r);
+                            grad.addColorStop(0, neb.color);
+                            grad.addColorStop(1, "rgba(0,0,0,0)");
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(neb.x, neb.y, neb.r, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        for (const star of stars) {
+                            const alpha = 0.4 + 0.6 * Math.abs(Math.sin(t * star.speed + star.phase));
+                            ctx.beginPath();
+                            ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+                            ctx.fill();
+                        }
+
+                        shootTimer++;
+                        if (shootTimer > 90) { spawnShoot(); shootTimer = 0; }
+                        for (let i = shoots.length - 1; i >= 0; i--) {
+                            const s = shoots[i];
+                            s.x += s.vx;
+                            s.y += s.vy;
+                            s.life -= 0.025;
+                            s.alpha = s.life;
+                            if (s.life <= 0) { shoots.splice(i, 1); continue; }
+                            const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * (s.len / 10), s.y - s.vy * (s.len / 10));
+                            grad.addColorStop(0, `rgba(255,255,255,${s.alpha})`);
+                            grad.addColorStop(1, "rgba(255,255,255,0)");
+                            ctx.beginPath();
+                            ctx.moveTo(s.x, s.y);
+                            ctx.lineTo(s.x - s.vx * (s.len / 10), s.y - s.vy * (s.len / 10));
+                            ctx.strokeStyle = grad;
+                            ctx.lineWidth = 2;
+                            ctx.stroke();
+                        }
+
+                        t++;
+                        animationId = requestAnimationFrame(draw);
+                    }
+
+                    draw();
+
+                    const handleResize = () => {
+                        width = window.innerWidth;
+                        height = window.innerHeight;
+                        canvas.width = width;
+                        canvas.height = height;
+                    };
+                    window.addEventListener("resize", handleResize);
+                    return () => {
+                        cancelAnimationFrame(animationId);
+                        window.removeEventListener("resize", handleResize);
+                    };
+                }, []);
+
+                return React.createElement('canvas', {
+                    ref: canvasRef,
+                    className: "fixed inset-0 w-full h-full",
+                    style: { zIndex: 0, pointerEvents: "none" }
+                });
+            };
+
+            // HeroScreen Component
+            const HeroScreen = ({ onStart }) => {
+                return React.createElement('div', { className: "min-h-screen flex flex-col items-center justify-center px-4 snap-start relative" },
+                    React.createElement('div', { 
+                        className: "absolute inset-0 flex items-center justify-center pointer-events-none",
+                        style: { zIndex: 1 }
+                    }, 
+                        React.createElement('div', {
+                            className: "w-96 h-96 rounded-full",
+                            style: { background: "radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)", filter: "blur(40px)" }
+                        })
+                    ),
+                    React.createElement('div', { className: "relative flex flex-col items-center text-center", style: { zIndex: 2 } },
+                        React.createElement('div', { className: "mb-3 tracking-widest text-xs uppercase text-purple-400/60 font-medium", style: { letterSpacing: "0.35em" } }, "Interactive Quiz by"),
+                        React.createElement('h1', { 
+                            className: "mb-6",
+                            style: { fontFamily: "'Dancing Script', 'Brush Script MT', cursive", fontSize: "clamp(3.5rem, 12vw, 7rem)", fontWeight: 700, background: "linear-gradient(135deg, #c084fc 0%, #818cf8 40%, #38bdf8 80%, #c084fc 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", filter: "drop-shadow(0 0 30px rgba(192,132,252,0.5))", lineHeight: 1.15, letterSpacing: "-0.01em" }
+                        }, "al_witify"),
+                        React.createElement('div', { className: "mb-2 text-lg md:text-xl font-light tracking-wide", style: { fontFamily: "'Dancing Script', cursive", color: "#a78bfa", textShadow: "0 0 20px rgba(167,139,250,0.5)" } }, "Head & Neck Anatomy Quiz"),
+                        React.createElement('p', { className: "text-purple-300/60 text-sm mb-10 max-w-md leading-relaxed", style: { fontFamily: "'Inter', sans-serif" } }, "31 carefully crafted MCQs. Select an answer to reveal feedback instantly. Scroll between questions."),
+                        React.createElement('div', { className: "flex gap-2 mb-10 text-yellow-400/60 text-lg" }, 
+                            ["★","✦","★","✦","★"].map((s,i) => React.createElement('span', { key:i, style: { animation: `pulse 2s ease-in-out ${i*0.3}s infinite alternate`, display: "inline-block" } }, s))
+                        ),
+                        React.createElement('button', {
+                            onClick: onStart,
+                            className: "group relative overflow-hidden px-10 py-4 rounded-2xl font-semibold text-white text-base tracking-wide transition-all duration-300",
+                            style: { background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 50%, #0ea5e9 100%)", boxShadow: "0 0 30px rgba(124,58,237,0.5), 0 4px 24px rgba(0,0,0,0.4)", fontFamily: "'Inter', sans-serif" }
+                        }, 
+                            React.createElement('span', { className: "relative z-10 flex items-center gap-2" }, "🚀 Start Quiz"),
+                            React.createElement('div', { className: "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300", style: { background: "linear-gradient(135deg, #9333ea 0%, #6366f1 50%, #38bdf8 100%)" } })
+                        ),
+                        React.createElement('div', { className: "mt-6 flex gap-6 text-purple-300/50 text-xs", style: { fontFamily: "'Inter', sans-serif" } },
+                            React.createElement('span', null, "📋 31 Questions"),
+                            React.createElement('span', null, "🎵 Audio Feedback"),
+                            React.createElement('span', null, "✨ Instant Results")
+                        )
+                    )
+                );
+            };
+
+            // QuestionCard Component
+            const QuestionCard = ({ question, index, total }) => {
+                const [selected, setSelected] = useState(null);
+                const [showResult, setShowResult] = useState(false);
+                const cardRef = useRef(null);
+                const isCorrect = selected === question.answer;
+                
+                const playSound = (type) => {
+                    try {
+                        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                        const ctx = new AudioCtx();
+                        if (type === "correct") {
+                            const freqs = [523.25, 659.25, 783.99];
+                            freqs.forEach((freq, i) => {
+                                const osc = ctx.createOscillator();
+                                const gain = ctx.createGain();
+                                osc.connect(gain);
+                                gain.connect(ctx.destination);
+                                osc.type = "sine";
+                                osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.15);
+                                gain.gain.setValueAtTime(0.35, ctx.currentTime + i * 0.15);
+                                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.45);
+                                osc.start(ctx.currentTime + i * 0.15);
+                                osc.stop(ctx.currentTime + i * 0.15 + 0.5);
+                            });
+                        } else {
+                            const freqs = [311.13, 233.08];
+                            freqs.forEach((freq, i) => {
+                                const osc = ctx.createOscillator();
+                                const gain = ctx.createGain();
+                                osc.connect(gain);
+                                gain.connect(ctx.destination);
+                                osc.type = "sawtooth";
+                                osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.18);
+                                gain.gain.setValueAtTime(0.25, ctx.currentTime + i * 0.18);
+                                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.38);
+                                osc.start(ctx.currentTime + i * 0.18);
+                                osc.stop(ctx.currentTime + i * 0.18 + 0.42);
+                            });
+                        }
+                    } catch (_) {}
+                };
+                
+                const handleSelect = (letter) => {
+                    if (showResult) return;
+                    setSelected(letter);
+                    setShowResult(true);
+                    const correct = letter === question.answer;
+                    playSound(correct ? "correct" : "wrong");
+                };
+                
+                const getOptionStyle = (letter) => {
+                    if (!showResult) return "border-purple-500/40 bg-white/5 hover:bg-purple-500/20 hover:border-purple-400 cursor-pointer text-purple-100";
+                    if (letter === question.answer) return "border-emerald-400 bg-emerald-500/20 text-emerald-200 shadow-[0_0_20px_rgba(52,211,153,0.35)]";
+                    if (letter === selected && letter !== question.answer) return "border-red-500 bg-red-500/20 text-red-200 shadow-[0_0_20px_rgba(239,68,68,0.35)]";
+                    return "border-purple-500/20 bg-white/3 text-purple-300/50 cursor-not-allowed";
+                };
+                
+                const getLetterBadge = (letter) => {
+                    if (!showResult) return "bg-purple-700/60 text-purple-200 border border-purple-500/40";
+                    if (letter === question.answer) return "bg-emerald-500 text-white border border-emerald-400";
+                    if (letter === selected && letter !== question.answer) return "bg-red-500 text-white border border-red-400";
+                    return "bg-purple-900/40 text-purple-400/60 border border-purple-700/30";
+                };
+                
+                return React.createElement('div', { ref: cardRef, className: "min-h-screen flex items-center justify-center px-4 py-12 snap-start" },
+                    React.createElement('div', {
+                        className: "w-full max-w-2xl rounded-3xl p-8 md:p-10 relative overflow-hidden",
+                        style: { background: "linear-gradient(135deg, rgba(30,0,60,0.85) 0%, rgba(10,0,40,0.92) 100%)", backdropFilter: "blur(18px)", border: "1px solid rgba(139,92,246,0.35)", boxShadow: "0 8px 60px rgba(100,0,200,0.25), inset 0 1px 0 rgba(255,255,255,0.08)" }
+                    },
+                        React.createElement('div', { className: "absolute -top-12 -right-12 w-48 h-48 rounded-full pointer-events-none", style: { background: "radial-gradient(circle, rgba(139,92,246,0.3) 0%, transparent 70%)" } }),
+                        React.createElement('div', { className: "absolute -bottom-10 -left-10 w-40 h-40 rounded-full pointer-events-none", style: { background: "radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%)" } }),
+                        React.createElement('div', { className: "flex items-center gap-3 mb-6" },
+                            React.createElement('span', { className: "flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold", style: { background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 0 16px rgba(124,58,237,0.5)", color: "#fff" } }, index+1),
+                            React.createElement('span', { className: "text-purple-300/70 text-sm font-medium tracking-widest uppercase" }, `Question ${index+1} of ${total}`),
+                            React.createElement('div', { className: "flex-1 h-1 rounded-full bg-purple-900/60 ml-2" },
+                                React.createElement('div', { className: "h-1 rounded-full transition-all duration-700", style: { width: `${((index+1)/total)*100}%`, background: "linear-gradient(90deg, #7c3aed, #06b6d4)", boxShadow: "0 0 8px rgba(124,58,237,0.6)" } })
+                            )
+                        ),
+                        React.createElement('h2', { className: "text-white text-xl md:text-2xl font-semibold leading-relaxed mb-8", style: { textShadow: "0 0 20px rgba(139,92,246,0.4)" } }, question.text),
+                        React.createElement('div', { className: "flex flex-col gap-3" }, 
+                            question.options.map((opt) => 
+                                React.createElement('button', {
+                                    key: opt.letter,
+                                    onClick: () => handleSelect(opt.letter),
+                                    disabled: showResult,
+                                    className: `flex items-center gap-4 w-full rounded-xl px-5 py-4 border transition-all duration-300 text-left group ${getOptionStyle(opt.letter)}`,
+                                    style: { fontFamily: "'Inter', sans-serif" }
+                                },
+                                    React.createElement('span', { className: `flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold transition-all duration-300 ${getLetterBadge(opt.letter)}` }, opt.letter.toUpperCase()),
+                                    React.createElement('span', { className: "text-sm md:text-base leading-snug flex-1" }, opt.text),
+                                    showResult && opt.letter === question.answer && React.createElement('span', { className: "flex-shrink-0 text-emerald-400 text-xl animate-bounce" }, "✓"),
+                                    showResult && opt.letter === selected && opt.letter !== question.answer && React.createElement('span', { className: "flex-shrink-0 text-red-400 text-xl" }, "✗")
+                                )
+                            )
+                        ),
+                        showResult && React.createElement('div', { className: `mt-6 flex items-center gap-3 rounded-xl px-5 py-4 text-sm font-semibold transition-all duration-500 ${isCorrect ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-300" : "bg-red-500/15 border border-red-500/40 text-red-300"}`, style: { animation: "fadeSlideUp 0.4s ease" } },
+                            React.createElement('span', { className: "text-2xl" }, isCorrect ? "🎉" : "💡"),
+                            React.createElement('span', null, isCorrect ? "Excellent! That's the correct answer!" : `Correct answer: ${question.answer.toUpperCase()}. ${question.options.find(o => o.letter === question.answer)?.text}`)
+                        ),
+                        index < total-1 ? React.createElement('div', { className: "mt-8 flex flex-col items-center gap-1 text-purple-400/50 text-xs" },
+                            React.createElement('span', null, "Scroll down for next question"),
+                            React.createElement('div', { className: "w-5 h-5 flex items-center justify-center animate-bounce" }, React.createElement('svg', { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", className: "w-4 h-4" }, React.createElement('path', { d: "M19 9l-7 7-7-7" })))
+                        ) : React.createElement('div', { className: "mt-8 flex flex-col items-center gap-1 text-purple-400/50 text-xs" }, React.createElement('span', { className: "text-emerald-400/70" }, "🏁 Last Question!"))
+                    )
+                );
+            };
+            
+            // Main App Component
+            const App = () => {
+                const [started, setStarted] = useState(false);
+                const containerRef = useRef(null);
+                
+                const handleStart = () => {
+                    setStarted(true);
+                    setTimeout(() => {
+                        if(containerRef.current) {
+                            containerRef.current.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+                        }
+                    }, 100);
+                };
+                
+                return React.createElement('div', { className: "relative min-h-screen", style: { fontFamily: "'Inter', sans-serif" } },
+                    React.createElement(GalaxyBackground, null),
+                    React.createElement('div', { ref: containerRef, className: "relative", style: { zIndex: 1, scrollSnapType: "y mandatory", overflowY: "scroll", height: "100vh", scrollBehavior: "smooth" } },
+                        React.createElement(HeroScreen, { onStart: handleStart }),
+                        started && questions.map((q, i) => React.createElement(QuestionCard, { key: q.id, question: q, index: i, total: questions.length })),
+                        !started && React.createElement('div', { className: "min-h-screen snap-start flex items-center justify-center" }, React.createElement('div', { className: "text-purple-400/30 text-sm" }, "Click Start Quiz to begin"))
+                    )
+                );
+            };
+            
+            const rootElement = document.getElementById('root');
+            const root = ReactDOM.createRoot(rootElement);
+            root.render(React.createElement(React.StrictMode, null, React.createElement(App, null)));
+        });
+    </script>
+</body>
+</html>
